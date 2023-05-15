@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="R_E" name="REAL ESTATE">
+        <menuitem id="A_D" name="Advertisement">
+            <menuitem id="A_c" action="estate-advertisement-action"/>
+        </menuitem>
+        <menuitem id="s" name="Settings">
+            <menuitem id="a_t" action="estate-settings-action"/>
+
+        </menuitem>
+    </menuitem>
+
+</odoo>

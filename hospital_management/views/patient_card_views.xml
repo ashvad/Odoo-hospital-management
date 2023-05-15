@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--       Patient Details TREE VIEW-->
+    <record id="patient_card__tree_view" model="ir.ui.view">
+        <field name="model">patient.card</field>
+        <field name="name">patient card tree view</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient"/>
+                <field name="patient_name_id"/>
+                <field name="blood_group" optional="hide"/>
+                <field name="mobile"/>
+                <field name="age"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    Patient Details FORM VIEW-->
+    <record id="patient_card_view_form" model="ir.ui.view">
+        <field name="name">patient_card_form_view</field>
+        <field name="model">patient.card</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" states="draft" type="object" string="Confirm"/>
+                    <button name="action_create_appointment" states="done" type="object" string="Create Appointment"/>
+                    <button name="action_cancel" states="done" type="object" string="Cancel" class="btn-primary"/>
+                    <button name="action_cancel_appointment" states="appointment" type="object" string="Cancel"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" string="Appointment" type="object" name="get_app"
+                                icon="fa-calendar" attrs="{'invisible':[('state','!=','appointment')]}">
+                            <field string="Appointment" name="appointment_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="patient"/>
+                    </h1>
+                    <div style="height:30px">
+                    </div>
+                    <notebook>
+                        <page string="Patient Details">
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="patient_name_id" widget="res_partner_many2one"
+                                               context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                               options="{&quot;always_reload&quot;: True}"/>
+                                        <field name="dob"/>
+                                        <field name="age"/>
+                                        <field name="gender"/>
+                                    </group>
+                                    <group>
+                                        <field name="mobile"/>
+                                        <field name="phone"/>
+                                        <field name="blood_group"/>
+                                        <field name="sale_order_id"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </page>
+
+                        <!-- Adding tree view inside the form view -->
+                        <page string="OP History">
+                            <field name="op_history_ids">
+                                <tree create="False">
+                                    <field name="date"/>
+                                    <field name="token_no"/>
+                                    <field name="doctor_id"/>
+                                    <field name="department_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!-- Adding Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- adding filters in tree view-->
+    <record id="patient_card_filters" model="ir.ui.view">
+        <field name="name">patient card filters</field>
+        <field name="model">patient.card</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient"/>
+                <field name="patient_name_id"/>
+                <field name="mobile"/>
+                <field name="age"/>
+                <filter string="My Cards" name="my_cards" domain="[('patient_name_id', '=', 'Deco Addict')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Patients" name="patient_name_id"
+                            context="{'group_by':'patient_name_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--    Patient Card ACTION -->
+    <record id="patient_card_action" model="ir.actions.act_window">
+        <field name="name">Patient Cards</field>
+        <field name="res_model">patient.card</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_my_cards":1}</field>
+    </record>
+</odoo>

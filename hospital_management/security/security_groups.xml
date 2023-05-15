@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="hospital_management_user" model="res.groups">
+        <field name="name">Receptionist</field>
+        <field name="category_id" ref="base.module_category_hospital_management"/>
+    </record>
+
+    <record id="hospital_management_manager" model="res.groups">
+        <field name="name">Doctor</field>
+        <field name="category_id" ref="base.module_category_hospital_management"/>
+    </record>
+
+    <record id="appointment_doctor_filter" model="ir.rule">
+        <field name="name">appointment doctor</field>
+        <field ref="model_patient_appointment" name="model_id"/>
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('hospital_management.hospital_management_manager'))]"/>
+    </record>
+</odoo>

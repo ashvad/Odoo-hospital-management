@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- patient consultation tree view  -->
+    <record id="patient_consultation_tree" model="ir.ui.view">
+        <field name="model">patient.consultation</field>
+        <field name="name">patient.consultation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_card_id"/>
+                <field name="consultation_type"/>
+                <field name="doctor_id"/>
+                <field name="department_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Patient consultation form view-->
+    <record id="patient_consultation_form" model="ir.ui.view">
+        <field name="name">patient consultation form view</field>
+        <field name="model">patient.consultation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <field name="patient_card_id" placeholder="Patient card" options="{'no_create':True}"/>
+                    </h1>
+                    <div style="height:30px">
+                    </div>
+                    <group>
+                        <group>
+                            <field name="consultation_type"/>
+                            <field name="doctor_id" domain="[('job_id','=','Doctor')]"/>
+                            <field name="department_id"/>
+                            <field name="op_id" domain="[('patient_card_id.id','=',patient_card_id)]"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="disease_id"/>
+                            <field name="diagnose"/>
+                        </group>
+                    </group>
+
+                    <!-- Patient treatment tree view -->
+                    <notebook>
+                        <page string="Treatment">
+                            <field name="treatment_ids">
+                                <tree>
+                                    <field name="medicine"/>
+                                    <field name="dose"/>
+                                    <field name="days"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!-- Adding chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Adding filters and group by -->
+    <record id="patient_consultation_filters" model="ir.ui.view">
+        <field name="name">patient consultation filters</field>
+        <field name="model">patient.consultation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_card_id"/>
+                <field name="consultation_type"/>
+                <field name="doctor_id"/>
+                <field name="department_id"/>
+                <field name="date"/>
+                <filter string="OP" name="consultation_type" domain="[('consultation_type','=','OP')]"/>
+                <filter string="IP" name="consultation_type" domain="[('consultation_type','=','IP')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Doctor" name="doctor_id" context="{'group_by':'doctor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Consultation Action -->
+    <record id="consultation_action" model="ir.actions.act_window">
+        <field name="name">Patient Consultation</field>
+        <field name="res_model">patient.consultation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
+
+
+
+
+
+
+

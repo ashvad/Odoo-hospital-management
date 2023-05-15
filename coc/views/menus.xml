@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="selection_coc" name="COC">
+        <menuitem id="material_action" action="selection_view_action"/>
+    </menuitem>
+</odoo>
+

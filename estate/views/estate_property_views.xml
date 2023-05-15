@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="estate-advertisement-action" model="ir.actions.act_window">
+        <field name="name">Estate Pro</field>
+        <field name="res_model">estate.name</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_filter":1}</field>
+        <filter string="ashvad" name="filter" domain="[('name','=','new')]"/>
+    </record>
+
+    <record id="estate-settings-action" model="ir.actions.act_window">
+        <!--                <field name="name">Estate name</field>-->
+        <field name="res_model">estate.name</field>
+    </record>
+
+
+    <record id="tree_view" model="ir.ui.view">
+        <field name="name">Tree View</field>
+        <field name="model">estate.name</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="Form_View" model="ir.ui.view">
+        <!--        <field name="name">Form View</field>-->
+        <field name="model">estate.name</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                    <group>
+                                        <field name="description"/>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
+                                        <field name="facades"/>
+                                        <field name="garage"/>
+                                        <field name="garden"/>
+                                        <field name="garden_area"/>
+                                        <field name="garden_orientation"/>
+                                    </group>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="estate_search" model="ir.ui.view">
+        <!--        <field name="name">estate.search</field>-->
+        <field name="model">estate.name</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="expected_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <filter string="ashvad" name="filter" domain="[('name','=','new')]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

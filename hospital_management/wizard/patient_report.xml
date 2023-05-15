@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    patient report form view-->
+    <record id="patient_report_wizard_form" model="ir.ui.view">
+        <field name="name">patient report wizard</field>
+        <field name="model">patient.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="patient_name_id"/>
+                        <field name="doctor_id" domain="[('job_id','=','Doctor')]"/>
+                        <field name="department_id"/>
+                    </group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="disease_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print_report" string="PDF Report" type="object" class="btn-primary"/>
+                    <button name="action_print_xls" string="XLS Report" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" type="object"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--    Action patient report wizard-->
+    <record id="action_patient_report_wizard" model="ir.actions.act_window">
+        <field name="name">Patient Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="patient_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

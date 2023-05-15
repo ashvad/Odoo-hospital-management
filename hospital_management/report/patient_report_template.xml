@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"<!--    hospital management report template-->
+
+    <template id="patient_report_temp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div>
+                    <center>
+                        <h1>Medical Report</h1>
+                        <h3 t-esc="sub_head">
+                        </h3>
+                        <strong>
+
+                            <span t-esc="doctor"/>
+                        </strong>
+                        <br/>
+                        <br/>
+                        <strong>
+                            <span t-if="data['date_from']">From -
+                                <span t-esc="data['date_from']"/>
+                            </span>
+                        </strong>
+                        <br/>
+                        <br/>
+                        <strong>
+                            <span t-if="data['date_to']">To -
+                                <span t-esc="data['date_to']"/>
+                            </span>
+
+                        </strong>
+                    </center>
+                </div>
+                <br/>
+                <br/>
+                <div>
+                    <table border="0" cellpadding="3" cellspacing="3"
+                           style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate; sh"
+                           class="table-hover" id="edit">
+                        <thead>
+                            <tr>
+                                <th scope="col">SL No</th>
+                                <th scope="col">OP</th>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Doctor</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">Disease</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-foreach="table" t-as="j">
+                                <tr>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <span t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <t t-esc="j['token_no']"/>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <t t-esc="j['patient_name']"/>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <t t-esc="j['date']"/>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <t t-esc="j['doctor']"/>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <t t-esc="j['dept_name']"/>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <br/>
+                                        <center>
+                                            <t t-esc="j['disease']"/>
+                                        </center>
+                                    </td>
+
+
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

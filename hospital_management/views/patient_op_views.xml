@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+
+    <!--    Patient op tree view-->
+    <record id="patient_op_tree_view" model="ir.ui.view">
+        <field name="model">patient.op</field>
+        <field name="name">patient op tree View</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_card_id"/>
+                <field name="patient_name_id"/>
+                <field name="token_no"/>
+                <field name="state"/>
+                <field name="fee"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--    patient op form view-->
+    <record id="patient_op_form_view" model="ir.ui.view">
+        <field name="name">patient.op.form.view</field>
+        <field name="model">patient.op</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" states="draft" type="object" string="Confirm" class="btn-primary"/>
+                    <button name="action_cancel" states="done" type="object" string="Cancel" class="btn-primary"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="action_fee" states="done" type="object" string="Fee Payment" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" string="Invoice" type="object" name="get_payment"
+                                icon="fa-calendar" attrs="{'invisible':[('state','!=','paid')]}">
+                            <field string="Invoice" name="invoice_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Paid" attrs="{'invisible':[('state','!=','paid')]}"/>
+                    <h1>
+                        <field name="patient_card_id" placeholder="Patient Card" options="{'no_create':True}"/>
+                    </h1>
+                    <div style="height:30px">
+                    </div>
+                    <notebook>
+                        <page string="Ticket Details">
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="patient_name_id"/>
+                                        <field name="age"/>
+                                        <field name="gender"/>
+                                        <field name="blood_group"/>
+                                        <field name="doctor_id" domain="[('job_id','=','Doctor')]"/>
+                                    </group>
+                                    <group>
+                                        <field name="date"/>
+                                        <field name="token_no"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="fee" widget="monetary"/>
+                                        <field name="department_id"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!--  Adding Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Adding filters and group by-->
+    <record id="patient_op_filters" model="ir.ui.view">
+        <field name="name">patient op filters</field>
+        <field name="model">patient.op</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_card_id"/>
+                <field name="patient_name_id"/>
+                <field name="token_no"/>
+                <field name="state"/>
+                <field name="fee"/>
+                <filter string="OP" name="state" domain="[('state','=','done')]"/>
+                <separator/>
+                <filter string="Paid" name="state" domain="[('state','=','paid')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Cards" name="patient_card_id"
+                            context="{'group_by':'patient_card_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!--  Patient OP Action  -->
+    <record id="patient_op_action" model="ir.actions.act_window">
+        <field name="name">OP Tickets</field>
+        <field name="res_model">patient.op</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>
+
+
+

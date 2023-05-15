@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="selection_Form_View" model="ir.ui.view">
+        <field name="name">selection form view</field>
+        <field name="model">selection.view</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="select" widget="selection_badge" class="opt_required"
+                               decoration-warning="select == 'pass'"/>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="selection_view_action" model="ir.actions.act_window">
+        <field name="name">selection</field>
+        <field name="res_model">selection.view</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
